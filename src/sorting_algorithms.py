@@ -16,6 +16,10 @@ from typing import List, Literal
 # Type alias for a list of integers
 IntList = List[int]
 
+
+# Pylint (R0903): This class is an interface, it's *supposed* to
+# have few public methods. Disabling this check is correct here.
+# pylint: disable=too-few-public-methods
 class SortingAlgorithm(abc.ABC):
     """A parent abstract base class for sorting algorithms."""
     @abc.abstractmethod
@@ -30,7 +34,7 @@ class SortingAlgorithm(abc.ABC):
         Returns:
             A new, sorted list.
         """
-        pass
+        ...  # Pylint (W0107): Use '...' instead of 'pass' for abstract stubs
 
     @staticmethod
     def _swap(data: IntList, i: int, j: int) -> None:
@@ -44,6 +48,9 @@ class SortingAlgorithm(abc.ABC):
             raise TypeError("Input list must only contain integer data types.")
 
 
+# Pylint (R0903): This class is a concrete strategy, it's correct
+# for it to only have one public 'sort' method.
+# pylint: disable=too-few-public-methods
 class BubbleSort(SortingAlgorithm):
     """Implements the Bubble Sort algorithm."""
     def sort(self, data: IntList, order: Literal['asc', 'desc']) -> IntList:
@@ -71,6 +78,7 @@ class BubbleSort(SortingAlgorithm):
         return arr
 
 
+# pylint: disable=too-few-public-methods
 class SelectionSort(SortingAlgorithm):
     """Implements the Selection Sort algorithm."""
     def sort(self, data: IntList, order: Literal['asc', 'desc']) -> IntList:
@@ -98,6 +106,7 @@ class SelectionSort(SortingAlgorithm):
         return arr
 
 
+# pylint: disable=too-few-public-methods
 class QuickSort(SortingAlgorithm):
     """Implements the Quick Sort algorithm."""
     def sort(self, data: IntList, order: Literal['asc', 'desc']) -> IntList:
@@ -139,6 +148,7 @@ class QuickSort(SortingAlgorithm):
             self._quick_sort_recursive(arr, partition_index + 1, high, order)
 
 
+# pylint: disable=too-few-public-methods
 class MergeSort(SortingAlgorithm):
     """Implements the Merge Sort algorithm."""
     def sort(self, data: IntList, order: Literal['asc', 'desc']) -> IntList:
@@ -147,8 +157,8 @@ class MergeSort(SortingAlgorithm):
         self._merge_sort_recursive(arr, 0, len(arr) - 1, order)
         return arr
 
-    # Pylint is correct that this has many args, but they are all
-    # necessary for the algorithm. We disable the check.
+    # Pylint (R0917): This method needs all 6 arguments for the
+    # merge logic to work. Disabling this check.
     # pylint: disable=too-many-arguments
     def _merge(self, arr: IntList, left: int, mid: int, right: int, order: str) -> None:
         left_size = mid - left + 1
@@ -204,6 +214,7 @@ class MergeSort(SortingAlgorithm):
 
 # --- NEWLY ADDED ALGORITHM ---
 
+# pylint: disable=too-few-public-methods
 class ShellSort(SortingAlgorithm):
     """Implements the Shell Sort algorithm."""
     def sort(self, data: IntList, order: Literal['asc', 'desc']) -> IntList:
@@ -217,7 +228,7 @@ class ShellSort(SortingAlgorithm):
                 # Add arr[i] to the elements that have been gap sorted
                 temp = arr[i]
                 j = i
-                
+
                 # --- Comparison Logic ---
                 # Shift earlier gap-sorted elements up until the correct location
                 # for arr[i] is found.
@@ -233,7 +244,8 @@ class ShellSort(SortingAlgorithm):
 
                 # Put temp (the original arr[i]) in its correct location
                 arr[j] = temp
-            
+
             gap //= 2
-            
+
         return arr
+
