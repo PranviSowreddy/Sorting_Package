@@ -28,7 +28,7 @@ def main():
     if len(sys.argv) != 3:
         # Print usage instructions to stderr
         print("Usage: python main.py <algorithm> <order>", file=sys.stderr)
-        print("  <algorithm>: quick, merge, bubble, selection", file=sys.stderr)
+        print("  <algorithm>: quick, merge, bubble, selection,shell", file=sys.stderr)
         print("  <order>: asc, desc", file=sys.stderr)
         print("\nExample:", file=sys.stderr)
         print("  python main.py quick asc < input.txt > output.txt", file=sys.stderr)

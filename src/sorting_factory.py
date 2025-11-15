@@ -1,7 +1,7 @@
 # sorting_factory.py
 import sys  
 from typing import Literal
-from .sorting_algorithms import SortingAlgorithm, BubbleSort, SelectionSort, QuickSort, MergeSort, IntList
+from .sorting_algorithms import SortingAlgorithm, BubbleSort, SelectionSort, QuickSort, MergeSort,ShellSort, IntList
 
 class SortingFactory:
     """
@@ -12,10 +12,11 @@ class SortingFactory:
         'selection': SelectionSort(),
         'quick': QuickSort(),
         'merge': MergeSort(),
+        'shell':ShellSort(),
     }
 
     def sort_data(self,
-                  algorithm_name: Literal['bubble', 'selection', 'quick', 'merge'],
+                  algorithm_name: Literal['bubble', 'selection', 'quick', 'merge','shell'],
                   data: IntList,
                   order: Literal['asc', 'desc'],
                   list_size: int = None
@@ -31,7 +32,8 @@ class SortingFactory:
             raise TypeError("Input list must only contain integer data types.")
 
         sorter: SortingAlgorithm = self.ALGORITHMS[algorithm_name]
-      
+        
+        # 2. CHANGE THIS LINE
         print(f"Sorting {len(data)} elements using **{algorithm_name.upper()}** in **{order.upper()}** order...", file=sys.stderr)
 
         return sorter.sort(data, order)

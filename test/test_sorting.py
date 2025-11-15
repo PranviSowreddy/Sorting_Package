@@ -1,22 +1,17 @@
-"""
-Unit tests for the sorting algorithms.
 
-This test script uses the 'unittest' module to verify the correctness
-of all sorting algorithms (Bubble, Selection, Quick, Merge) against
-a variety of test cases.
-"""
 
 import unittest
 import random
 import os
 import sys
 
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
 try:
     # Attempt to import all necessary classes
     from Sorting_Package.src.sorting_algorithms import (
-        BubbleSort, SelectionSort, QuickSort, MergeSort, SortingAlgorithm
+        BubbleSort, SelectionSort, QuickSort, MergeSort, ShellSort, SortingAlgorithm
     )
 except ImportError:
     print("\nError: Could not import sorting algorithms.", file=sys.stderr)
@@ -27,7 +22,7 @@ except ImportError:
 
 class TestSortingAlgorithms(unittest.TestCase):
     """
-    Tests the 4 sorting algorithms (Bubble, Selection, Quick, Merge)
+    Tests the 4 sorting algorithms (Bubble, Selection, Quick, Merge, Shell)
     to check for correctness.
     """
     
@@ -55,6 +50,7 @@ class TestSortingAlgorithms(unittest.TestCase):
             'SelectionSort': SelectionSort(),
             'QuickSort': QuickSort(),
             'MergeSort': MergeSort(),
+            'ShellSort': ShellSort(),
         }
 
     def _test_sort_helper(self, sorter: SortingAlgorithm, test_list: list, order: str, list_name: str):
@@ -115,4 +111,8 @@ class TestSortingAlgorithms(unittest.TestCase):
                 sorter.sort([10, 'hello', 2.5], 'desc')
 
 if __name__ == '__main__':
+    """
+    This allows the script to be run directly:
+    $ python test_sorting.py
+    """
     unittest.main()
